@@ -21,6 +21,7 @@ def compute_frequency_grid(Nn, minfq = 500, maxfq = 10):
 
 
 def inp_param(ntau,ngrid, f = 2, minfq = 500, maxfq = 10):
+   
     """Calculate the imput parameteres of WWZ
 
         Parameters
@@ -28,7 +29,8 @@ def inp_param(ntau,ngrid, f = 2, minfq = 500, maxfq = 10):
         ntau : int, number of time
         ngrid: grid size
         f: for calculation of decay constant
-
+        minfq:minimum frequnecy default 1/500 days
+        maxfq: maximum frequnecy default 1/10days
     """
     
     df, fmin, fmax = compute_frequency_grid(ngrid, minfq, maxfq)
@@ -65,8 +67,8 @@ def wwt(tt, mag,ntau,ngrid, f = 2, minfq = 500, maxfq = 10,  method = 'linear'):
         tt : list of time data
         mag : list of magnitude values
         ntau, ngrid : values for controling wwz execution (see inp_param function)
-        minfq : minimum frequency
-        maxfq : maximum fraquency
+        minfq : minimum frequency 1/minfreq
+        maxfq : maximum fraquency 1/maxfq
         method : "linear" / "octave"
 
         """
