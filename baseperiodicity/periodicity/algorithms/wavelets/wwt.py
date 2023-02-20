@@ -85,7 +85,7 @@ def wwt(tt, mag,ntau,ngrid, f = 2, minfq = 500, maxfq = 10,  method = 'linear'):
 
 
 
-def hybrid2d(tt, mag,ntau,ngrid, f = 2, minfq = 500, maxfq = 10,  method = 'linear'):
+def hybrid2d(tt, mag,tt1, mag1, ntau,ngrid, f = 2, minfq = 500, maxfq = 10,  method = 'linear'):
     """Perform hybrid2d method on given data 
 
         Parameters
@@ -101,17 +101,17 @@ def hybrid2d(tt, mag,ntau,ngrid, f = 2, minfq = 500, maxfq = 10,  method = 'line
     
     #Perform wwz of data
     wwz_matrix = wwt(tt, mag, ntau, ngrid, f, minfq, maxfq, method)
-    
+    wwz_matrix1 = wwt(tt1, mag1, ntau, ngrid, f, minfq, maxfq, method)
     #autocrrelate matrix
-    corr = correlation_nd(np.rot90(wwz_matrix[2]),np.rot90(wwz_matrix[2]))
+    corr = correlation_nd(np.rot90(wwz_matrix[2]),np.rot90(wwz_matrix1[2]))
     extentmin=np.min(wwz_matrix[1])
-    extentmax=np.max(wwz_matrix[1])
+    extentmax=np.max(wwz_matrix1[1])
 
     extent=[extentmin,extentmax,extentmin,extentmax]
     
     
 
-    return wwz_matrix, corr,  extent
+    return wwz_matrix,wwz_matrix1, corr,  extent
 
 
 
