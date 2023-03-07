@@ -206,18 +206,19 @@ def periods (lcID, data, ngrid, plot = False, save = False, peakHeight = 0.6, pr
     
     
         
-    return r_peaks, r_peaks_err_upper, r_peaks_err_lower
+    return peaks, r_peaks, r_peaks_err_upper, r_peaks_err_lower
     
     
     
-def signif_johnoson(numlc, peak, corr,  tt, yy, ntau,ngrid, f = 2, peakHeight = 0.6, minfq = 500, maxfq = 10, algorithm ='wwz', method = 'linear'):
+def signif_johnoson(numlc, peak, peaks,  tt, yy, ntau,ngrid, f = 2, peakHeight = 0.6, minfq = 500, maxfq = 10, algorithm ='wwz', method = 'linear'):
     """Determination of significance usign Johnson method
 
         Parameters
         ----------
         numlc : int, number of lc for determination
         peak : determined periodicity peak
-        corr : hybrid 2d output
+        ### removed corr : hybrid 2d output
+        peaks: array of detected peaks from period procedure
         tt : time
         yy: magnitude
         plot: True of Folse
@@ -226,11 +227,12 @@ def signif_johnoson(numlc, peak, corr,  tt, yy, ntau,ngrid, f = 2, peakHeight = 
         maxfq : maximum fraquency
         peakHeight: max peak height,
         algorithm: wwz or superlets (for now)
+  
     """
-    hh1=np.rot90(corr).T/np.rot90(corr).T.max()
-    hh1arr=np.rot90(hh1.T)
-    hh1arr1=np.abs(hh1arr).sum(1)/np.abs(hh1arr).sum(1).max()
-    peaks,_ = find_peaks(hh1arr1,peakHeight, prominence = 0.6)
+  #  hh1=np.rot90(corr).T/np.rot90(corr).T.max()
+  #  hh1arr=np.rot90(hh1.T)
+  #  hh1arr1=np.abs(hh1arr).sum(1)/np.abs(hh1arr).sum(1).max()
+  #  peaks,_ = find_peaks(hh1arr1,peakHeight, prominence = 0.6)
     
     if peak > len(peaks):
         return None
