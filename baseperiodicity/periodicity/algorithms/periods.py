@@ -193,8 +193,10 @@ def periods (lcID, data, ngrid, plot = False, save = False, peakHeight = 0.6, pr
     r_peaks = []
     r_peaks_err_upper = []
     r_peaks_err_lower = []
+    idx_peaks=[]
     for i in range(len(peaks)):
         r_peaks.append(1/xax[peaks[i]])
+        idx_peaks.append(peaks[i])
         if( error_upper[i] == 0):
             r_peaks_err_upper.append(-1)
         else:
@@ -206,11 +208,11 @@ def periods (lcID, data, ngrid, plot = False, save = False, peakHeight = 0.6, pr
     
     
         
-    return peaks, hh1arr1, r_peaks, r_peaks_err_upper, r_peaks_err_lower
+    return idx_peaks, yax, r_peaks, r_peaks_err_upper, r_peaks_err_lower
     
     
     
-def signif_johnoson(numlc, peak, peaks, hh1arr1, tt, yy, ntau,ngrid, f = 2, peakHeight = 0.6, minfq = 500, maxfq = 10, algorithm ='wwz', method = 'linear'):
+def signif_johnoson(numlc, peak, idx_peaks, yax, tt, yy, ntau,ngrid, f = 2, peakHeight = 0.6, minfq = 500, maxfq = 10, algorithm ='wwz', method = 'linear'):
     """Determination of significance usign Johnson method
 
         Parameters
@@ -235,10 +237,10 @@ def signif_johnoson(numlc, peak, peaks, hh1arr1, tt, yy, ntau,ngrid, f = 2, peak
   #  hh1arr1=np.abs(hh1arr).sum(1)/np.abs(hh1arr).sum(1).max()
   #  peaks,_ = find_peaks(hh1arr1,peakHeight, prominence = 0.6)
     
-    if peak > len(peaks):
-        return None
+   # if peak > len(peaks):
+   #     return None
     
-    idxrep=peaks[peak]
+    idxrep=idx_peaks[peak]
     #peak power larger than red noise peak power
     count=0.
     #peak power of red noise larger than observed peak power
@@ -262,8 +264,8 @@ def signif_johnoson(numlc, peak, peaks, hh1arr1, tt, yy, ntau,ngrid, f = 2, peak
         hh1x=np.rot90(hhx.T)
         hh1xarr=np.abs(hh1x).sum(1)/np.abs(hh1x).sum(1).max()
 
-        bins.append(hh1xarr[idxrep])
-        if ((hh1arr1[idxrep]/hh1xarr[idxrep])>1.):
+        bins.append(yax[idxrep])
+        if ((yax[idxrep]/hh1xarr[idxrep])>1.):
             count=count+1.
         else:
             count11=count11+1.  
