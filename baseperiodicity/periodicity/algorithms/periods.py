@@ -206,11 +206,11 @@ def periods (lcID, data, ngrid, plot = False, save = False, peakHeight = 0.6, pr
     
     
         
-    return peaks, r_peaks, r_peaks_err_upper, r_peaks_err_lower
+    return peaks, hh1arr1, r_peaks, r_peaks_err_upper, r_peaks_err_lower
     
     
     
-def signif_johnoson(numlc, peak, peaks,  tt, yy, ntau,ngrid, f = 2, peakHeight = 0.6, minfq = 500, maxfq = 10, algorithm ='wwz', method = 'linear'):
+def signif_johnoson(numlc, peak, peaks, hh1arr1, tt, yy, ntau,ngrid, f = 2, peakHeight = 0.6, minfq = 500, maxfq = 10, algorithm ='wwz', method = 'linear'):
     """Determination of significance usign Johnson method
 
         Parameters
@@ -218,7 +218,8 @@ def signif_johnoson(numlc, peak, peaks,  tt, yy, ntau,ngrid, f = 2, peakHeight =
         numlc : int, number of lc for determination
         peak : determined periodicity peak
         ### removed corr : hybrid 2d output
-        peaks: array of detected peaks from period procedure
+        peaks: array of indeces of detected peaks from period procedure
+        hh1arr1: imported periodogram like structure from periods
         tt : time
         yy: magnitude
         plot: True of Folse
